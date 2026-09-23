@@ -28,10 +28,8 @@ export function App() {
             <Badge>New</Badge>
             <h2>Welcome</h2>
             <p>This is a KraftNow card.</p>
-            <Input placeholder="Type something..." />
-            <label>
-              <Checkbox /> I agree
-            </label>
+            <Input label="Your name" placeholder="Type something..." />
+            <Checkbox label="I agree" />
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.5rem' }}>
               <Avatar name="John Doe" />
               <Button onClick={() => setOpen(true)}>Open Modal</Button>

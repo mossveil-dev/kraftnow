@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useTheme } from '../core/KraftNowProvider'
 
 export function Modal({
@@ -11,10 +12,20 @@ export function Modal({
 }) {
   const theme = useTheme()
 
+  useEffect(() => {
+    function handleEscape(e: KeyboardEvent) {
+      if (e.key === 'Escape') onClose()
+    }
+    if (open) document.addEventListener('keydown', handleEscape)
+    return () => document.removeEventListener('keydown', handleEscape)
+  }, [open, onClose])
+
   if (!open) return null
 
   return (
     <div
+      role="dialog"
+      aria-modal="true"
       style={{
         position: 'fixed',
         inset: 0,
