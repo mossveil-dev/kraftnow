@@ -16,9 +16,9 @@ export default defineConfig({
       fileName: 'index',
       formats: ['es', 'cjs'],
     },
-    rollupOptions: {
-      external: ['react', 'react-dom'],
-    },
+  rollupOptions: {
+    external: ['react', 'react-dom', 'react/jsx-runtime'],
+  },
   },
   test: {
     environment: 'jsdom',
