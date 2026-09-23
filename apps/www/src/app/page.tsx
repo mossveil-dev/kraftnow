@@ -7,7 +7,7 @@ export default function Home() {
     <KraftNowProvider baseColor="#3b82f6">
       <div style={{ padding: '2rem' }}>
         <Card>
-          <h1>KraftNow Docs</h1>
+          <h1>KraftNow</h1>
           <Button>Get Started</Button>
         </Card>
       </div>
