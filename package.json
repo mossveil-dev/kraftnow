@@ -1,18 +1,26 @@
 {
   "name": "kraftnow",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "React library that auto-generates a complete design system from a single color.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "tsc && vite build"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mossveil-dev/kraftnow.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "react",
+    "design-system",
+    "theme",
+    "ui",
+    "components",
+    "color"
+  ],
+  "author": "mossveil-dev",
+  "license": "MIT",
   "type": "module",
   "bugs": {
     "url": "https://github.com/mossveil-dev/kraftnow/issues"
@@ -23,6 +31,7 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.1",
+    "prettier": "^3.9.9",
     "typescript": "^7.0.2",
     "vite": "^8.3.0"
   },
