@@ -1,125 +1,146 @@
 'use client'
 
-import { motion } from 'motion/react'
+import { useState, useMemo } from 'react'
+import { KraftNowProvider, Button } from 'kraftnow'
+import { generateTheme } from 'kraftnow'
 
 export default function Home() {
+  const [color, setColor] = useState('#3b82f6')
+  const theme = useMemo(() => generateTheme(color), [color])
+
   return (
-    <main
-      style={{
-        minHeight: '100vh',
-        background: '#0a0a0a',
-        color: '#fff',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '2rem',
-        fontFamily: 'system-ui, sans-serif',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
-    >
-      {/* Glow background */}
-      <div
+    <KraftNowProvider baseColor={color}>
+      <main
         style={{
-          position: 'absolute',
-          top: '20%',
-          width: '600px',
-          height: '600px',
-          background: 'radial-gradient(circle, rgba(59,130,246,0.25) 0%, transparent 70%)',
-          filter: 'blur(60px)',
-          pointerEvents: 'none',
-        }}
-      />
-
-      <motion.span
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        style={{
-          fontSize: '0.8rem',
-          fontFamily: 'monospace',
-          color: '#3b82f6',
-          border: '1px solid rgba(59,130,246,0.4)',
-          padding: '4px 14px',
-          borderRadius: '999px',
-          marginBottom: '1.5rem',
+          minHeight: '100vh',
+          background: '#FAFAFA',
+          color: '#18181B',
+          fontFamily: 'var(--font-display)',
         }}
       >
-        v0.1.0 — early preview
-      </motion.span>
-
-      <motion.h1
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.1 }}
-        style={{
-          fontSize: 'clamp(3rem, 8vw, 5.5rem)',
-          fontWeight: 800,
-          letterSpacing: '-0.03em',
-          textAlign: 'center',
-          margin: 0,
-          background: 'linear-gradient(180deg, #fff 0%, #a1a1aa 100%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-        }}
-      >
-        KraftNow
-      </motion.h1>
-
-      <motion.p
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        style={{
-          fontSize: '1.2rem',
-          color: '#a1a1aa',
-          margin: '1rem 0 2rem',
-          textAlign: 'center',
-        }}
-      >
-        One color, a full design system.
-      </motion.p>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.3 }}
-        style={{ display: 'flex', gap: '0.75rem' }}
-      >
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+        <div
           style={{
-            background: '#fff',
-            color: '#0a0a0a',
-            border: 'none',
-            padding: '12px 28px',
-            borderRadius: '10px',
-            fontSize: '1rem',
-            fontWeight: 600,
-            cursor: 'pointer',
+            maxWidth: '1100px',
+            margin: '0 auto',
+            padding: '6rem 2rem',
+            display: 'grid',
+            gridTemplateColumns: '1.1fr 0.9fr',
+            gap: '4rem',
+            alignItems: 'center',
           }}
         >
-          Get Started
-        </motion.button>
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          style={{
-            background: 'transparent',
-            color: '#fff',
-            border: '1px solid #333',
-            padding: '12px 28px',
-            borderRadius: '10px',
-            fontSize: '1rem',
-            fontWeight: 600,
-            cursor: 'pointer',
-          }}
-        >
-          GitHub →
-        </motion.button>
-      </motion.div>
-    </main>
+          {/* Left: headline */}
+          <div>
+            <h1
+              style={{
+                fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+                fontWeight: 700,
+                lineHeight: 1.05,
+                letterSpacing: '-0.02em',
+                margin: '0 0 1.25rem',
+              }}
+            >
+              One color.
+              <br />A full design system.
+            </h1>
+            <p
+              style={{
+                fontSize: '1.1rem',
+                lineHeight: 1.6,
+                color: '#52525B',
+                maxWidth: '420px',
+                marginBottom: '2rem',
+                fontFamily: 'system-ui, sans-serif',
+              }}
+            >
+              KraftNow generates a complete, harmonious set of colors, spacing, and shadows
+              from a single value — then hands it to ready-made React components.
+            </p>
+            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+              <Button>Get Started</Button>
+                <a
+                href="https://github.com/mossveil-dev/kraftnow"
+                style={{ color: '#18181B', fontFamily: 'system-ui, sans-serif', fontSize: '0.95rem' }}
+              >
+                View on GitHub
+              </a>
+            </div>
+          </div>
+
+          {/* Right: live token panel */}
+          <div
+            style={{
+              background: '#fff',
+              border: '1px solid #E4E4E7',
+              borderRadius: '12px',
+              padding: '1.5rem',
+            }}
+          >
+            <label
+              style={{
+                display: 'block',
+                fontSize: '0.85rem',
+                color: '#71717A',
+                marginBottom: '0.5rem',
+                fontFamily: 'system-ui, sans-serif',
+              }}
+            >
+              Base color
+            </label>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.5rem' }}>
+              <input
+                type="color"
+                value={color}
+                onChange={(e) => setColor(e.target.value)}
+                style={{ width: '36px', height: '36px', border: 'none', background: 'none', cursor: 'pointer' }}
+              />
+              <input
+                type="text"
+                value={color}
+                onChange={(e) => setColor(e.target.value)}
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.95rem',
+                  border: '1px solid #E4E4E7',
+                  borderRadius: '6px',
+                  padding: '6px 10px',
+                  flex: 1,
+                }}
+              />
+            </div>
+
+            {Object.entries(theme.colors).map(([name, hex]) => (
+              <div
+                key={name}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.75rem',
+                  padding: '0.5rem 0',
+                  borderTop: '1px solid #F4F4F5',
+                }}
+              >
+                <div
+                  style={{
+                    width: '24px',
+                    height: '24px',
+                    borderRadius: '6px',
+                    background: hex as string,
+                    border: '1px solid rgba(0,0,0,0.08)',
+                    flexShrink: 0,
+                  }}
+                />
+                <span style={{ fontSize: '0.85rem', color: '#71717A', fontFamily: 'system-ui, sans-serif', width: '90px' }}>
+                  {name}
+                </span>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: '#18181B' }}>
+                  {hex as string}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </main>
+    </KraftNowProvider>
   )
 }
