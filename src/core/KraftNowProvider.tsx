@@ -1,16 +1,18 @@
-import { createContext, useContext, useMemo } from "react"
-import { generateTheme } from "./generateTheme"
+import { createContext, useContext, useMemo } from 'react'
+import { generateTheme } from './generateTheme'
 
 const ThemeContext = createContext<ReturnType<typeof generateTheme> | null>(null)
 
 export function KraftNowProvider({
   baseColor,
-  children
+  mode = 'light',
+  children,
 }: {
-  baseColor: string,
+  baseColor: string
+  mode?: 'light' | 'dark'
   children: React.ReactNode
 }) {
-  const theme = useMemo(() => generateTheme(baseColor), [baseColor])
+  const theme = useMemo(() => generateTheme(baseColor, mode), [baseColor, mode])
 
   return (
     <ThemeContext.Provider value={theme}>
@@ -20,7 +22,7 @@ export function KraftNowProvider({
 }
 
 export function useTheme() {
-    const theme = useContext(ThemeContext)
-    if (!theme) throw new Error('useTheme must be used within KraftNowProvider')
-    return theme
+  const theme = useContext(ThemeContext)
+  if (!theme) throw new Error('useTheme must be used within KraftNowProvider')
+  return theme
 }

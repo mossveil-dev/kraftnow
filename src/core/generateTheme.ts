@@ -2,18 +2,25 @@ import { formatHex, parse, converter } from 'culori'
 
 const toHsl = converter('hsl')
 
-export function generateTheme(baseColor: string) {
+export function generateTheme(baseColor: string, mode: 'light' | 'dark' = 'light') {
   const hsl = toHsl(parse(baseColor))
 
   if (!hsl) throw new Error('Invalid color')
 
+  const isDark = mode === 'dark'
+
   return {
+    mode,
     colors: {
       base: baseColor,
       light: formatHex({ ...hsl, l: Math.min(hsl.l + 0.2, 1) }),
       dark: formatHex({ ...hsl, l: Math.max(hsl.l - 0.2, 0) }),
-      background: formatHex({ ...hsl, l: 0.98, s: hsl.s * 0.3 }),
-      text: formatHex({ ...hsl, l: 0.15, s: hsl.s * 0.3 }),
+      background: isDark
+        ? formatHex({ ...hsl, l: 0.12, s: hsl.s * 0.3 })
+        : formatHex({ ...hsl, l: 0.98, s: hsl.s * 0.3 }),
+      text: isDark
+        ? formatHex({ ...hsl, l: 0.92, s: hsl.s * 0.3 })
+        : formatHex({ ...hsl, l: 0.15, s: hsl.s * 0.3 }),
     },
     spacing: {
       sm: '0.5rem',

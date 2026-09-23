@@ -12,14 +12,18 @@ import { Avatar } from './components/Avatar'
 export function App() {
   const [color, setColor] = useState('#3b82f6')
   const [open, setOpen] = useState(false)
+  const [mode, setMode] = useState<'light' | 'dark'>('light')
 
   return (
-    <KraftNowProvider baseColor={color}>
+    <KraftNowProvider baseColor={color} mode={mode}>
       <div style={{ padding: '2rem' }}>
         <label>
           Pick a color:{' '}
           <input type="color" value={color} onChange={(e) => setColor(e.target.value)} />
         </label>
+        <button onClick={() => setMode(mode === 'light' ? 'dark' : 'light')} style={{ marginLeft: '1rem' }}>
+          Toggle {mode === 'light' ? 'Dark' : 'Light'} Mode
+        </button>
 
         <div style={{ marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <Alert>This is an alert message.</Alert>
