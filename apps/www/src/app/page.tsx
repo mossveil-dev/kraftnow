@@ -3,10 +3,25 @@
 import { useState, useMemo } from 'react'
 import { KraftNowProvider, Button } from 'kraftnow'
 import { generateTheme } from 'kraftnow'
+import { motion } from 'motion/react'
 
 export default function Home() {
   const [color, setColor] = useState('#3b82f6')
+  const [inputValue, setInputValue] = useState('#3b82f6')
+
+  function handleColorChange(value: string) {
+    setInputValue(value)
+    if (/^#([0-9A-F]{3}){1,2}$/i.test(value)) {
+      setColor(value)
+    }
+  }
+
   const theme = useMemo(() => generateTheme(color), [color])
+
+  const fadeUp = {
+    hidden: { opacity: 0, y: 24 },
+    show: { opacity: 1, y: 0 },
+  }
 
   return (
     <KraftNowProvider baseColor={color}>
@@ -18,7 +33,10 @@ export default function Home() {
           fontFamily: 'var(--font-display)',
         }}
       >
-        <div
+        <motion.div
+          initial="hidden"
+          animate="show"
+          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.15 } } }}
           style={{
             maxWidth: '1100px',
             margin: '0 auto',
@@ -29,8 +47,7 @@ export default function Home() {
             alignItems: 'center',
           }}
         >
-          {/* Left: headline */}
-          <div>
+          <motion.div variants={fadeUp} transition={{ type: 'spring', stiffness: 100, damping: 20 }}>
             <h1
               style={{
                 fontSize: 'clamp(2.5rem, 5vw, 4rem)',
@@ -57,18 +74,21 @@ export default function Home() {
               from a single value — then hands it to ready-made React components.
             </p>
             <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-              <Button>Get Started</Button>
-                <a
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-block' }}>
+                <Button>Get Started</Button>
+              </motion.div>
+              <a
                 href="https://github.com/mossveil-dev/kraftnow"
                 style={{ color: '#18181B', fontFamily: 'system-ui, sans-serif', fontSize: '0.95rem' }}
               >
                 View on GitHub
               </a>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Right: live token panel */}
-          <div
+          <motion.div
+            variants={fadeUp}
+            transition={{ type: 'spring', stiffness: 100, damping: 20 }}
             style={{
               background: '#fff',
               border: '1px solid #E4E4E7',
@@ -91,13 +111,13 @@ export default function Home() {
               <input
                 type="color"
                 value={color}
-                onChange={(e) => setColor(e.target.value)}
+                onChange={(e) => handleColorChange(e.target.value)}
                 style={{ width: '36px', height: '36px', border: 'none', background: 'none', cursor: 'pointer' }}
               />
               <input
                 type="text"
-                value={color}
-                onChange={(e) => setColor(e.target.value)}
+                value={inputValue}
+                onChange={(e) => handleColorChange(e.target.value)}
                 style={{
                   fontFamily: 'var(--font-mono)',
                   fontSize: '0.95rem',
@@ -110,7 +130,7 @@ export default function Home() {
             </div>
 
             {Object.entries(theme.colors).map(([name, hex]) => (
-              <div
+              <motion.div
                 key={name}
                 style={{
                   display: 'flex',
@@ -128,6 +148,7 @@ export default function Home() {
                     background: hex as string,
                     border: '1px solid rgba(0,0,0,0.08)',
                     flexShrink: 0,
+                    transition: 'background-color 0.3s ease',
                   }}
                 />
                 <span style={{ fontSize: '0.85rem', color: '#71717A', fontFamily: 'system-ui, sans-serif', width: '90px' }}>
@@ -136,10 +157,10 @@ export default function Home() {
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: '#18181B' }}>
                   {hex as string}
                 </span>
-              </div>
+              </motion.div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </main>
     </KraftNowProvider>
   )
